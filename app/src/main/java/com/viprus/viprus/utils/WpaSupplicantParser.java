@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.utils;
+package com.viprus.viprus.utils;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
@@ -24,8 +24,8 @@ import org.apache.commons.codec.binary.Hex;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.brunoparmentier.wifikeyshare.model.WifiAuthType;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
+import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiNetwork;
 
 public class WpaSupplicantParser {
 

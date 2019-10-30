@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.ui.activities;
+package com.viprus.viprus.ui.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -53,16 +53,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import be.brunoparmentier.wifikeyshare.R;
-import be.brunoparmentier.wifikeyshare.adapters.WifiNetworkAdapter;
-import be.brunoparmentier.wifikeyshare.db.WifiKeysDataSource;
-import be.brunoparmentier.wifikeyshare.model.WifiAuthType;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
-import be.brunoparmentier.wifikeyshare.ui.AboutDialog;
-import be.brunoparmentier.wifikeyshare.ui.ContextMenuRecyclerView;
-import be.brunoparmentier.wifikeyshare.ui.DividerItemDecoration;
-import be.brunoparmentier.wifikeyshare.utils.WifiConfigStoreParser;
-import be.brunoparmentier.wifikeyshare.utils.WpaSupplicantParser;
+import com.viprus.viprus.R;
+import com.viprus.viprus.adapters.WifiNetworkAdapter;
+import com.viprus.viprus.db.WifiKeysDataSource;
+import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiNetwork;
+import com.viprus.viprus.ui.AboutDialog;
+import com.viprus.viprus.ui.ContextMenuRecyclerView;
+import com.viprus.viprus.ui.DividerItemDecoration;
+import com.viprus.viprus.utils.WifiConfigStoreParser;
+import com.viprus.viprus.utils.WpaSupplicantParser;
 import eu.chainfire.libsuperuser.Shell;
 
 public class WifiListActivity extends AppCompatActivity {

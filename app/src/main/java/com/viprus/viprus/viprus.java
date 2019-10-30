@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare;
+package com.viprus.viprus;
 
 import android.app.Application;
 
 import org.wordpress.passcodelock.AppLockManager;
 
-import be.brunoparmentier.wifikeyshare.db.WifiKeysDataSource;
-import be.brunoparmentier.wifikeyshare.ui.activities.ConfirmConnectToWifiNetworkActivity;
+import com.viprus.viprus.db.WifiKeysDataSource;
+import com.viprus.viprus.ui.activities.ConfirmConnectToWifiNetworkActivity;
 
-public class WifiKeyShareApp extends Application {
+public class viprus extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package be.brunoparmentier.wifikeyshare.utils;
+package com.viprus.viprus.utils;
 
 import android.util.Log;
 import android.util.Xml;
@@ -29,8 +29,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.brunoparmentier.wifikeyshare.model.WifiAuthType;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
+import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiNetwork;
 
 public class WifiConfigStoreParser {
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.ui.activities;
+package com.viprus.viprus.ui.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

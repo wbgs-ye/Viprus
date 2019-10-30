@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.utils;
+package com.viprus.viprus.utils;
 
 import android.net.wifi.WifiConfiguration;
 import android.nfc.NdefMessage;
@@ -31,8 +31,8 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.BitSet;
 
-import be.brunoparmentier.wifikeyshare.BuildConfig;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
+import com.viprus.viprus.BuildConfig;
+import com.viprus.viprus.model.WifiNetwork;
 
 /**
  * Utility class containing functions to read/write NFC tags with Wi-Fi configurations

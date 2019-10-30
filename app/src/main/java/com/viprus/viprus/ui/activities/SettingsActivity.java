@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.ui.activities;
+package com.viprus.viprus.ui.activities;
 
 
 import android.annotation.TargetApi;
@@ -33,7 +33,7 @@ import org.wordpress.passcodelock.PasscodePreferenceFragment;
 
 import java.util.List;
 
-import be.brunoparmentier.wifikeyshare.R;
+import com.viprus.viprus.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

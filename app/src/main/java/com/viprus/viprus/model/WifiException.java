@@ -16,24 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.model;
+package com.viprus.viprus.model;
 
-public enum WifiAuthType {
-    OPEN("Open"),
-    WEP("WEP"),
-    WPA_PSK("WPA PSK"),
-    WPA_EAP("WPA EAP"),
-    WPA2_EAP("WPA2 EAP"),
-    WPA2_PSK("WPA2 PSK");
+public class WifiException extends Exception {
 
-    private final String printableName;
+    public static final int WEP_KEY_LENGTH_ERROR = 0x0001;
+    public static final int WPA_KEY_LENGTH_ERROR = 0x0002;
 
-    WifiAuthType(String printableName) {
-        this.printableName = printableName;
+    private int errorCode;
+
+    public WifiException(int errorCode) {
+        this.errorCode = errorCode;
     }
 
-    @Override
-    public String toString() {
-        return printableName;
+    public int getErrorCode() {
+        return errorCode;
     }
 }

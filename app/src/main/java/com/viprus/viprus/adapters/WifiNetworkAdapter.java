@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.adapters;
+package com.viprus.viprus.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,9 +30,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import be.brunoparmentier.wifikeyshare.R;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
-import be.brunoparmentier.wifikeyshare.ui.activities.WifiNetworkActivity;
+import com.viprus.viprus.R;
+import com.viprus.viprus.model.WifiNetwork;
+import com.viprus.viprus.ui.activities.WifiNetworkActivity;
 
 public class WifiNetworkAdapter extends RecyclerView.Adapter<WifiNetworkAdapter.ViewHolder> {
 

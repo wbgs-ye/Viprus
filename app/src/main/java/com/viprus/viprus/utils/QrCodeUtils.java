@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.utils;
+package com.viprus.viprus.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -26,8 +26,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import be.brunoparmentier.wifikeyshare.model.WifiAuthType;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
+import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiNetwork;
 
 /**
  * Utility class containing functions to generate QR codes

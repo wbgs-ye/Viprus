@@ -1,4 +1,4 @@
-package be.brunoparmentier.wifikeyshare.ui;
+package com.viprus.viprus.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

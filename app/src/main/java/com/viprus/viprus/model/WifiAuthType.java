@@ -16,24 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.db;
+package com.viprus.viprus.model;
 
-import android.provider.BaseColumns;
+public enum WifiAuthType {
+    OPEN("Open"),
+    WEP("WEP"),
+    WPA_PSK("WPA PSK"),
+    WPA_EAP("WPA EAP"),
+    WPA2_EAP("WPA2 EAP"),
+    WPA2_PSK("WPA2 PSK");
 
-/**
- * WifiKeys database definition
- */
-public final class WifiKeysContract {
+    private final String printableName;
 
-    /* Empty constructor to prevent accidentally instantiating the contract class */
-    public WifiKeysContract() {}
-
-    /* Inner class that defines the table contents */
-    public static abstract class WifiKeys implements BaseColumns {
-        public static final String TABLE_NAME = "wifi_keys";
-        public static final String COLUMN_NAME_SSID = "ssid";
-        public static final String COLUMN_NAME_AUTH_TYPE = "auth_type";
-        public static final String COLUMN_NAME_KEY = "key";
+    WifiAuthType(String printableName) {
+        this.printableName = printableName;
     }
 
+    @Override
+    public String toString() {
+        return printableName;
+    }
 }

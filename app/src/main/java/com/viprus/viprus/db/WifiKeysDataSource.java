@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.db;
+package com.viprus.viprus.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -26,8 +26,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.brunoparmentier.wifikeyshare.model.WifiAuthType;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
+import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiNetwork;
 
 public class WifiKeysDataSource {
 

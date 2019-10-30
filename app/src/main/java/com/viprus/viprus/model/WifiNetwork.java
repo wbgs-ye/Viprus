@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.model;
+package com.viprus.viprus.model;
 
 import android.net.wifi.WifiConfiguration;
 

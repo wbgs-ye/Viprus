@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.ui.activities;
+package com.viprus.viprus.ui.activities;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -62,14 +62,14 @@ import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 
-import be.brunoparmentier.wifikeyshare.R;
-import be.brunoparmentier.wifikeyshare.db.WifiKeysDataSource;
-import be.brunoparmentier.wifikeyshare.model.WifiAuthType;
-import be.brunoparmentier.wifikeyshare.model.WifiException;
-import be.brunoparmentier.wifikeyshare.model.WifiNetwork;
-import be.brunoparmentier.wifikeyshare.ui.AboutDialog;
-import be.brunoparmentier.wifikeyshare.utils.NfcUtils;
-import be.brunoparmentier.wifikeyshare.utils.QrCodeUtils;
+import com.viprus.viprus.R;
+import com.viprus.viprus.db.WifiKeysDataSource;
+import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiException;
+import com.viprus.viprus.model.WifiNetwork;
+import com.viprus.viprus.ui.AboutDialog;
+import com.viprus.viprus.utils.NfcUtils;
+import com.viprus.viprus.utils.QrCodeUtils;
 
 public class WifiNetworkActivity extends AppCompatActivity {
 

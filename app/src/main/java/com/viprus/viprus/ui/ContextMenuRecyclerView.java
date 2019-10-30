@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.ui;
+package com.viprus.viprus.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

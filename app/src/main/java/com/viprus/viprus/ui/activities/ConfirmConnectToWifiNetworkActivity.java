@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-package be.brunoparmentier.wifikeyshare.ui.activities;
+package com.viprus.viprus.ui.activities;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -40,8 +40,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
-import be.brunoparmentier.wifikeyshare.R;
-import be.brunoparmentier.wifikeyshare.utils.NfcUtils;
+import com.viprus.viprus.R;
+import com.viprus.viprus.utils.NfcUtils;
 
 public class ConfirmConnectToWifiNetworkActivity extends Activity {
 

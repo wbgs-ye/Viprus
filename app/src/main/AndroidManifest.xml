@@ -18,14 +18,14 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="be.brunoparmentier.wifikeyshare">
+    package="com.viprus.viprus">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.NFC" />
 
     <application
-        android:name="be.brunoparmentier.wifikeyshare.WifiKeyShareApp"
+        android:name="com.viprus.viprus.viprus"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

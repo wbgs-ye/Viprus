@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.ui;
+package com.viprus.viprus.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,8 +25,8 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
-import be.brunoparmentier.wifikeyshare.BuildConfig;
-import be.brunoparmentier.wifikeyshare.R;
+import com.viprus.viprus.BuildConfig;
+import com.viprus.viprus.R;
 
 /**
  * About dialog with HTML-formatted TextView and clickable links

@@ -16,20 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package be.brunoparmentier.wifikeyshare.model;
+package com.viprus.viprus.db;
 
-public class WifiException extends Exception {
+import android.provider.BaseColumns;
 
-    public static final int WEP_KEY_LENGTH_ERROR = 0x0001;
-    public static final int WPA_KEY_LENGTH_ERROR = 0x0002;
+/**
+ * WifiKeys database definition
+ */
+public final class WifiKeysContract {
 
-    private int errorCode;
+    /* Empty constructor to prevent accidentally instantiating the contract class */
+    public WifiKeysContract() {}
 
-    public WifiException(int errorCode) {
-        this.errorCode = errorCode;
+    /* Inner class that defines the table contents */
+    public static abstract class WifiKeys implements BaseColumns {
+        public static final String TABLE_NAME = "wifi_keys";
+        public static final String COLUMN_NAME_SSID = "ssid";
+        public static final String COLUMN_NAME_AUTH_TYPE = "auth_type";
+        public static final String COLUMN_NAME_KEY = "key";
     }
 
-    public int getErrorCode() {
-        return errorCode;
-    }
 }
