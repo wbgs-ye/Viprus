@@ -1,3 +1,3 @@
-# Viprus - Easy WiFi Credential sharing via NFC/ QR codes.
+# Viprus - WiFi Credential Sharing
 
 A fork of [WiFiKeyShare](https://wifikeysha.re/)
