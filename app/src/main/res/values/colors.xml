@@ -18,10 +18,9 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF9800</color>
-
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">#000000</color>
     <color name="passcodelock_background">@color/colorPrimary</color>
     <color name="passcodelock_prompt_text_color">@android:color/primary_text_dark</color>
     <color name="passcodelock_field_background_color">@color/white</color>

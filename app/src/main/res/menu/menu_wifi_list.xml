@@ -24,6 +24,7 @@
         android:id="@+id/action_settings"
         android:title="@string/settings"
         android:orderInCategory="99"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"

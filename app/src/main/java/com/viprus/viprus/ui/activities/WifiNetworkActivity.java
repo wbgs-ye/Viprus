@@ -30,16 +30,16 @@ import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.print.PrintHelper;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.print.PrintHelper;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -238,7 +238,7 @@ public class WifiNetworkActivity extends AppCompatActivity {
 
                         // Update QR code image
                         FragmentManager fm = getSupportFragmentManager();
-                        QrCodeFragment qrCodeFragment = (QrCodeFragment) fm.getFragments().get(1);
+                        QrCodeFragment qrCodeFragment = (QrCodeFragment) fm.getFragments().get(0);
                         qrCodeFragment.updateQrCode(wifiNetwork);
 
                         WifiKeysDataSource.getInstance().insertWifiKey(wifiNetwork);

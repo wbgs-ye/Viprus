@@ -78,9 +78,6 @@
     <string name="confirm_connection_title_connect_to_network">Connect to network</string>
     <string name="confirm_connection_prompt_connect_to_network">Connect to network %1$s?</string>
 
-    <!-- Print menu-->
-    <string name="print_dialog_title">Print</string>
-
     <!-- About dialog -->
     <string name="about_dialog_title">About</string>
     <!-- HTML text for the About dialog box -->
@@ -89,14 +86,16 @@
         <![CDATA[
         <p>Version %s</p>
 
-        <p><a href="http://wifikeysha.re">http://wifikeysha.re</a></p>
+        <p><a href="https://viprus.co.uk">https://viprus.co.uk</a></p>
 
-        <p>WiFiKeyShare lets you easily share your Wi-Fi password by generating a QR code or by writing it to an NFC tag.<p>
+        <p>The Viprus app enables you to share your Wi-Fi password by writing it to a Viprus NFC puck or generating a QR code.<p>
 
         <p>This application is free software (GPLv3+). You can find the source code at
-        <a href="https://github.com/bparmentier/WiFiKeyShare">https://github.com/bparmentier/WiFiKeyShare</a>.</p>
+        <a href="https://github.com/wbgs-ye/Viprus">https://github.com/wbgs-ye/Viprus</a>.</p>
 
-        <p>Please report any issue at <a href="https://github.com/bparmentier/WiFiKeyShare/issues">https://github.com/bparmentier/WiFiKeyShare/issues</a>.</p>
+        <p>Please report any issue at <a href="https://github.com/wbgs-ye/Viprus/issues">https://github.com/wbgs-ye/Viprus/issues</a>.</p>
+
+        <p>Viprus was built on <a href="https://github.com/bparmentier/WiFiKeyShare">WiFiKeyShare by Bruno Parmentier</a>.</p>
         ]]>
     </string>
     <string name="about_dialog_msg_license_title">
@@ -106,7 +105,7 @@
     </string>
     <string name="about_dialog_msg_license">
         <![CDATA[
-        <p>Copyright &copy; 2016, 2018 Bruno Parmentier</p>
+        <p>Copyright &copy; 2019 Viprus</p>
 
         <p>This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -130,7 +129,7 @@
     </string>
     <string name="about_dialog_msg_credits">
         <![CDATA[
-        <p>WiFiKeyShare was built using the following libraries:</p>
+        <p>Viprus was built using the following libraries:</p>
 
         &nbsp;&nbsp;&bull;&nbsp;<a href="https://developer.android.com/tools/support-library/index.html">Android Support</a><br />
         &nbsp;&nbsp;&bull;&nbsp;<a href="https://github.com/Chainfire/libsuperuser">libsuperuser</a><br />
