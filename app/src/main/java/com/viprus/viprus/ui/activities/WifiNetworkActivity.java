@@ -68,6 +68,7 @@ import com.viprus.viprus.model.WifiAuthType;
 import com.viprus.viprus.model.WifiException;
 import com.viprus.viprus.model.WifiNetwork;
 import com.viprus.viprus.ui.AboutDialog;
+import com.viprus.viprus.ui.PrintDialog;
 import com.viprus.viprus.utils.NfcUtils;
 import com.viprus.viprus.utils.QrCodeUtils;
 
@@ -477,6 +478,10 @@ public class WifiNetworkActivity extends AppCompatActivity {
             case R.id.action_about:
                 final AlertDialog aboutDialog = new AboutDialog(this);
                 aboutDialog.show();
+                return true;
+            case R.id.action_print:
+                final AlertDialog printDialog = new PrintDialog(this);
+                printDialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

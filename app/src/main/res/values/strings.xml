@@ -77,7 +77,7 @@
     <string name="confirm_connection_status_wifi_connected">Connected</string>
     <string name="confirm_connection_title_connect_to_network">Connect to network</string>
     <string name="confirm_connection_prompt_connect_to_network">Connect to network %1$s?</string>
-
+    <string name="print_dialog_title">Print</string>
     <!-- About dialog -->
     <string name="about_dialog_title">About</string>
     <!-- HTML text for the About dialog box -->

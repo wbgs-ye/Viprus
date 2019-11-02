@@ -45,6 +45,7 @@
         <activity
             android:name=".ui.activities.WifiNetworkActivity"
             android:label="@string/wifi_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
