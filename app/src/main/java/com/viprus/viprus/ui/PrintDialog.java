@@ -19,9 +19,13 @@
 package com.viprus.viprus.ui;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
@@ -29,23 +33,87 @@ import android.print.PageRange;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
+import android.print.PrintJob;
 import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.CancellationSignal;
+import androidx.print.PrintHelper;
 
 import com.viprus.viprus.R;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static eu.chainfire.libsuperuser.Debug.TAG;
 
 /**
  * About dialog with HTML-formatted TextView and clickable links
  */
+
 public class PrintDialog extends AlertDialog {
+    private WebView mWebView;
+    LayoutInflater inflater = getLayoutInflater();
+    View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
+    private void doWebViewPrint() {
+        // Create a WebView object specifically for printing
+        WebView webView = new WebView(getContext());
+        webView.setWebViewClient(new WebViewClient() {
+
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                Log.i(TAG, "page finished loading " + url);
+                createWebPrintJob(view);
+                mWebView = null;
+            }
+        });
+
+        // Generate an HTML document on the fly:
+        ContextWrapper cw = new ContextWrapper(getContext());
+        File path1 = cw.getDir("profile", Context.MODE_PRIVATE);
+        File f = new File(path1, "qrCode.png");
+        String imagePath = "file://" + f.getAbsolutePath();
+        String htmlDocument = "<html>" +
+                "<style>@page{margin: 0mm 0mm 0mm 0mm;} html,body{margin:0px;height:297mm;width:210mm;} img{height:37mm;width:37mm;}</style>" +
+                "<body>" +
+                "<img height='37mm' width='37mm' src='" + imagePath + "'>" +
+                "</body></html>";
+        webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
+        mWebView = webView;
+    }
+    private void createWebPrintJob(WebView webView) {
+
+        // Get a PrintManager instance
+        PrintManager printManager = (PrintManager) getContext()
+                .getSystemService(Context.PRINT_SERVICE);
+
+        String jobName = " Document";
+
+        // Get a print adapter instance
+        PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
+
+        // Create a print job with name and adapter instance
+        PrintJob printJob = printManager.print(jobName, printAdapter,
+                new PrintAttributes.Builder().build());
+
+        // Save the job object for later status checking
+    }
+
+
+
     public PrintDialog(Context context) {
 
         super(context);
@@ -59,7 +127,7 @@ public class PrintDialog extends AlertDialog {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                doWebViewPrint();
             }
         });
         Button button2 = dialogLayout.findViewById(R.id.button02);

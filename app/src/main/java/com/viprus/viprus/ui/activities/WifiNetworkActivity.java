@@ -21,6 +21,7 @@ package com.viprus.viprus.ui.activities;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -71,6 +72,9 @@ import com.viprus.viprus.ui.AboutDialog;
 import com.viprus.viprus.ui.PrintDialog;
 import com.viprus.viprus.utils.NfcUtils;
 import com.viprus.viprus.utils.QrCodeUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class WifiNetworkActivity extends AppCompatActivity {
 
@@ -525,13 +529,29 @@ public class WifiNetworkActivity extends AppCompatActivity {
             try {
                 final Bitmap qrCodeBitmap = QrCodeUtils.generateWifiQrCode(widthInPixels, wifiNetwork);
                 final Bitmap qrCodeBitmap2 = QrCodeUtils.generateWifiQrCode(200, wifiNetwork);
+                ContextWrapper cw = new ContextWrapper(getActivity());
+                File directory = cw.getDir("profile", Context.MODE_PRIVATE);
+                if (!directory.exists()) {
+                    directory.mkdir();
+                }
+                File mypath = new File(directory, "qrCode.png");
+
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream(mypath);
+                    qrCodeBitmap2.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.close();
+                } catch (Exception e) {
+                    Log.e("SAVE_IMAGE", e.getMessage(), e);
+                }
+
                 qrCodeImageView.setImageBitmap(qrCodeBitmap);
                 qrCodeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         PrintHelper photoPrinter = new PrintHelper(getActivity());
                         photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
-                        photoPrinter.printBitmap("Wifi QRCode", qrCodeBitmap2);
+                        photoPrinter.printBitmap("Wifi QRCode", qrCodeBitmap);
                     }
                 });
             } catch (final WriterException e) {
