@@ -62,9 +62,11 @@ import static eu.chainfire.libsuperuser.Debug.TAG;
 
 public class PrintDialog extends AlertDialog {
     private WebView mWebView;
+    private String shiftTop;
+    private String shiftBottom;
     LayoutInflater inflater = getLayoutInflater();
     View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
-    private void doWebViewPrint() {
+    private void doWebViewPrint(String shiftTop, String shiftBottom) {
         // Create a WebView object specifically for printing
         WebView webView = new WebView(getContext());
         webView.setWebViewClient(new WebViewClient() {
@@ -87,9 +89,10 @@ public class PrintDialog extends AlertDialog {
         File f = new File(path1, "qrCode.png");
         String imagePath = "file://" + f.getAbsolutePath();
         String htmlDocument = "<html>" +
-                "<style>@page{margin: 0mm 0mm 0mm 0mm;} html,body{margin:0px;height:297mm;width:210mm;} img{height:37mm;width:37mm;}</style>" +
+                "<link rel='stylesheet' href='file:///android_asset/style.css'/>" +
+                "<style>img{height:37mm;width:37mm;}</style>" +
                 "<body>" +
-                "<img height='37mm' width='37mm' src='" + imagePath + "'>" +
+                "<img style='margin-left:"+ shiftTop + ";margin-top:" + shiftBottom + ";'height='37mm' width='37mm' src='" + imagePath + "'>" +
                 "</body></html>";
         webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
         mWebView = webView;
@@ -127,35 +130,35 @@ public class PrintDialog extends AlertDialog {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                doWebViewPrint();
+                doWebViewPrint("0","0");
             }
         });
         Button button2 = dialogLayout.findViewById(R.id.button02);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                doWebViewPrint("39mm","0");
             }
         });
         Button button3 = dialogLayout.findViewById(R.id.button03);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                doWebViewPrint("78mm","0");
             }
         });
         Button button4 = dialogLayout.findViewById(R.id.button04);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                doWebViewPrint("117mm","0");
             }
         });
         Button button5 = dialogLayout.findViewById(R.id.button05);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                doWebViewPrint("156mm","0");
             }
         });
 

@@ -1,0 +1,17 @@
+@page !important{
+margin-left:12mm;
+margin-right: 0mm;
+margin-top: 12mm;
+margin-bottom: 12mm;
+height:297mm;
+width:210mm;
+}
+
+*{
+margin:0px, padding:0px
+}
+
+body{
+margin: 0mm;
+padding: 0mm;
+}
