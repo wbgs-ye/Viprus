@@ -43,6 +43,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.CancellationSignal;
@@ -64,6 +66,13 @@ public class PrintDialog extends AlertDialog {
     private WebView mWebView;
     private String shiftTop;
     private String shiftBottom;
+    private RadioGroup rowGroup;
+    private RadioGroup columnGroup;
+    private RadioButton rowGroupButton;
+    private RadioButton columnGroupButton;
+    private String rowGroupButtonText;
+    private String columnGroupButtonText;
+
     LayoutInflater inflater = getLayoutInflater();
     View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
     private void doWebViewPrint(String shiftTop, String shiftBottom) {
@@ -115,7 +124,27 @@ public class PrintDialog extends AlertDialog {
         // Save the job object for later status checking
     }
 
+    private void toggleCheck() {
+        Log.e("Check","toggled");
+        Button submitPrint = dialogLayout.findViewById(R.id.submitPrint);
+        rowGroup = dialogLayout.findViewById(R.id.rowBar);
+        columnGroup = dialogLayout.findViewById(R.id.colBar);
+        if (columnGroup.getCheckedRadioButtonId() == -1)
+        {
+            Log.e("colgroup","change");
+            submitPrint.setEnabled(false);
+        }
+        else if (rowGroup.getCheckedRadioButtonId() == -1)
+        {
+            Log.e("rowgroup","change");
+            submitPrint.setEnabled(false);
+        }
+        else
+        {
+            submitPrint.setEnabled(true);
+        }
 
+    }
 
     public PrintDialog(Context context) {
 
@@ -125,262 +154,33 @@ public class PrintDialog extends AlertDialog {
         View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
         setView(dialogLayout);
         setTitle(R.string.print_dialog_title);
-
-        Button button1 = dialogLayout.findViewById(R.id.button01);
-        button1.setOnClickListener(new View.OnClickListener() {
+        RadioGroup radG = dialogLayout.findViewById(R.id.rowBar);
+        radG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                doWebViewPrint("0","0");
-            }
-        });
-        Button button2 = dialogLayout.findViewById(R.id.button02);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doWebViewPrint("39mm","0");
-            }
-        });
-        Button button3 = dialogLayout.findViewById(R.id.button03);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doWebViewPrint("78mm","0");
-            }
-        });
-        Button button4 = dialogLayout.findViewById(R.id.button04);
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doWebViewPrint("117mm","0");
-            }
-        });
-        Button button5 = dialogLayout.findViewById(R.id.button05);
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doWebViewPrint("156mm","0");
-            }
-        });
-
-        Button button6 = dialogLayout.findViewById(R.id.button11);
-        button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button7 = dialogLayout.findViewById(R.id.button12);
-        button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button8 = dialogLayout.findViewById(R.id.button13);
-        button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button9 = dialogLayout.findViewById(R.id.button14);
-        button9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button10 = dialogLayout.findViewById(R.id.button15);
-        button10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.e("radio","check detected");
+                toggleCheck();
             }
         });
 
 
-        Button button11 = dialogLayout.findViewById(R.id.button21);
-        button11.setOnClickListener(new View.OnClickListener() {
+        Button submitPrint = dialogLayout.findViewById(R.id.submitPrint);
+        submitPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button12 = dialogLayout.findViewById(R.id.button22);
-        button12.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button13 = dialogLayout.findViewById(R.id.button23);
-        button13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button14 = dialogLayout.findViewById(R.id.button24);
-        button14.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button15 = dialogLayout.findViewById(R.id.button25);
-        button15.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
+                rowGroup = findViewById(R.id.rowBar);
+                columnGroup  = findViewById(R.id.colBar);
+                /*doWebViewPrint("0","0");*/
+                int rowId = rowGroup.getCheckedRadioButtonId();
+                rowGroupButton = findViewById(rowId);
+                rowGroupButtonText = rowGroupButton.getText().toString();
+                int colId = columnGroup.getCheckedRadioButtonId();
+                columnGroupButton = findViewById(colId);
+                columnGroupButtonText = columnGroupButton.getText().toString();
+
             }
         });
 
-
-        Button button16 = dialogLayout.findViewById(R.id.button31);
-        button16.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button17 = dialogLayout.findViewById(R.id.button32);
-        button17.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button18 = dialogLayout.findViewById(R.id.button33);
-        button18.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button19 = dialogLayout.findViewById(R.id.button34);
-        button19.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button20 = dialogLayout.findViewById(R.id.button35);
-        button20.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-
-
-        Button button21 = dialogLayout.findViewById(R.id.button41);
-        button21.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button22 = dialogLayout.findViewById(R.id.button42);
-        button22.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button23 = dialogLayout.findViewById(R.id.button43);
-        button23.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button24 = dialogLayout.findViewById(R.id.button44);
-        button24.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button25 = dialogLayout.findViewById(R.id.button45);
-        button25.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-
-
-        Button button26 = dialogLayout.findViewById(R.id.button51);
-        button26.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button27 = dialogLayout.findViewById(R.id.button52);
-        button27.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button28 = dialogLayout.findViewById(R.id.button53);
-        button28.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button29 = dialogLayout.findViewById(R.id.button54);
-        button29.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button30 = dialogLayout.findViewById(R.id.button55);
-        button30.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-
-        Button button31 = dialogLayout.findViewById(R.id.button61);
-        button31.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button32 = dialogLayout.findViewById(R.id.button62);
-        button32.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button33 = dialogLayout.findViewById(R.id.button63);
-        button33.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button34 = dialogLayout.findViewById(R.id.button64);
-        button34.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        Button button35 = dialogLayout.findViewById(R.id.button65);
-        button35.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
     }
 
     @Override
