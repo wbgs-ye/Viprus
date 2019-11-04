@@ -86,7 +86,6 @@ public class PrintDialog extends AlertDialog {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                Log.i(TAG, "page finished loading " + url);
                 createWebPrintJob(view);
                 mWebView = null;
             }
@@ -125,18 +124,15 @@ public class PrintDialog extends AlertDialog {
     }
 
     private void toggleCheck() {
-        Log.e("Check","toggled");
-        Button submitPrint = dialogLayout.findViewById(R.id.submitPrint);
-        rowGroup = dialogLayout.findViewById(R.id.rowBar);
-        columnGroup = dialogLayout.findViewById(R.id.colBar);
+        Button submitPrint = findViewById(R.id.submitPrint);
+        rowGroup = findViewById(R.id.rowBar);
+        columnGroup = findViewById(R.id.colBar);
         if (columnGroup.getCheckedRadioButtonId() == -1)
         {
-            Log.e("colgroup","change");
             submitPrint.setEnabled(false);
         }
         else if (rowGroup.getCheckedRadioButtonId() == -1)
         {
-            Log.e("rowgroup","change");
             submitPrint.setEnabled(false);
         }
         else
@@ -154,11 +150,17 @@ public class PrintDialog extends AlertDialog {
         View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
         setView(dialogLayout);
         setTitle(R.string.print_dialog_title);
-        RadioGroup radG = dialogLayout.findViewById(R.id.rowBar);
-        radG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        RadioGroup rowG = dialogLayout.findViewById(R.id.rowBar);
+        rowG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.e("radio","check detected");
+                toggleCheck();
+            }
+        });
+        RadioGroup colG = dialogLayout.findViewById(R.id.colBar);
+        colG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 toggleCheck();
             }
         });
@@ -177,7 +179,45 @@ public class PrintDialog extends AlertDialog {
                 int colId = columnGroup.getCheckedRadioButtonId();
                 columnGroupButton = findViewById(colId);
                 columnGroupButtonText = columnGroupButton.getText().toString();
-
+                Integer margin = 39;
+                if (columnGroupButtonText.equals("A")){
+                    shiftTop = "0mm";
+                }
+                else if (columnGroupButtonText.equals("B")){
+                    shiftTop = "39mm";
+                }
+                else if (columnGroupButtonText.equals("C")){
+                    shiftTop = (margin*2) + "mm";
+                }
+                else if (columnGroupButtonText.equals("D")){
+                    shiftTop = (margin*3) + "mm";
+                }
+                else if (columnGroupButtonText.equals("E")){
+                    shiftTop = (margin*4) + "mm";
+                }
+                if (rowGroupButtonText.equals("1")){
+                    shiftBottom = "0mm";
+                }
+                else if (rowGroupButtonText.equals("2")){
+                    shiftBottom = (margin) + "mm";
+                }
+                else if (rowGroupButtonText.equals("3")){
+                    shiftBottom = (margin*2) + "mm";
+                }
+                else if (rowGroupButtonText.equals("4")){
+                    shiftBottom = (margin*3) + "mm";
+                }
+                else if (rowGroupButtonText.equals("5")){
+                    shiftBottom = (margin*4) + "mm";
+                }
+                else if (rowGroupButtonText.equals("6")){
+                    shiftBottom = (margin*5) + "mm";
+                }
+                else if (rowGroupButtonText.equals("7")){
+                    shiftBottom = (margin*6) + "mm";
+                }
+                doWebViewPrint(shiftTop,shiftBottom);
+                dismiss();
             }
         });
 

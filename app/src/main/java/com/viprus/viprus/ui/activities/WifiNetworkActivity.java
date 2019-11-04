@@ -549,9 +549,7 @@ public class WifiNetworkActivity extends AppCompatActivity {
                 qrCodeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        PrintHelper photoPrinter = new PrintHelper(getActivity());
-                        photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
-                        photoPrinter.printBitmap("Wifi QRCode", qrCodeBitmap);
+
                     }
                 });
             } catch (final WriterException e) {
