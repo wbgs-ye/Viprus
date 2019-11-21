@@ -2,16 +2,19 @@
 margin-left:12mm;
 margin-right: 0mm;
 margin-top: 12mm;
-margin-bottom: 12mm;
+margin-bottom: 0mm;
 height:297mm;
 width:210mm;
 }
 
 *{
-margin:0px, padding:0px
+margin-right:0mm;
+margin-bottom:0mm;
+padding:0mm;
 }
 
 body{
-margin: 0mm;
+margin-right: 0mm;
+margin-bottom:0mm;
 padding: 0mm;
 }

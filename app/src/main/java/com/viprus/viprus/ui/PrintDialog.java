@@ -66,12 +66,39 @@ public class PrintDialog extends AlertDialog {
     private WebView mWebView;
     private String shiftTop;
     private String shiftBottom;
-    private RadioGroup rowGroup;
+    private RadioGroup rowGroup1;
+    private RadioGroup rowGroup2;
     private RadioGroup columnGroup;
     private RadioButton rowGroupButton;
     private RadioButton columnGroupButton;
     private String rowGroupButtonText;
     private String columnGroupButtonText;
+    private RadioGroup.OnCheckedChangeListener rowG1Listener = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            rowGroup1 = findViewById(R.id.rowBar1);
+            rowGroup2 = findViewById(R.id.rowBar2);
+            if (checkedId != -1) {
+                rowGroup2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                rowGroup2.clearCheck(); // clear the second RadioGroup!
+                rowGroup2.setOnCheckedChangeListener(rowG2Listener); //reset the listener
+            }
+            toggleCheck();
+        }
+    };
+    private RadioGroup.OnCheckedChangeListener rowG2Listener = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            rowGroup1 = findViewById(R.id.rowBar1);
+            rowGroup2 = findViewById(R.id.rowBar2);
+            if (checkedId != -1) {
+                rowGroup1.setOnCheckedChangeListener(null);
+                rowGroup1.clearCheck();
+                rowGroup1.setOnCheckedChangeListener(rowG1Listener);
+            }
+            toggleCheck();
+        }
+    };
 
     LayoutInflater inflater = getLayoutInflater();
     View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
@@ -98,9 +125,9 @@ public class PrintDialog extends AlertDialog {
         String imagePath = "file://" + f.getAbsolutePath();
         String htmlDocument = "<html>" +
                 "<link rel='stylesheet' href='file:///android_asset/style.css'/>" +
-                "<style>img{height:37mm;width:37mm;}</style>" +
+                "<style>img{height:30mm;width:30mm;}</style>" +
                 "<body>" +
-                "<img style='margin-left:"+ shiftTop + ";margin-top:" + shiftBottom + ";'height='37mm' width='37mm' src='" + imagePath + "'>" +
+                "<img style='margin-left:"+ shiftTop + ";margin-top:" + shiftBottom + ";'height='30mm' width='30mm' src='" + imagePath + "'>" +
                 "</body></html>";
         webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
         mWebView = webView;
@@ -122,22 +149,24 @@ public class PrintDialog extends AlertDialog {
 
         // Save the job object for later status checking
     }
-
     private void toggleCheck() {
         Button submitPrint = findViewById(R.id.submitPrint);
-        rowGroup = findViewById(R.id.rowBar);
+        rowGroup1 = findViewById(R.id.rowBar1);
+        rowGroup2 = findViewById(R.id.rowBar2);
         columnGroup = findViewById(R.id.colBar);
-        if (columnGroup.getCheckedRadioButtonId() == -1)
+        if (columnGroup.getCheckedRadioButtonId() != -1)
         {
-            submitPrint.setEnabled(false);
+            submitPrint.setEnabled(true);
         }
-        else if (rowGroup.getCheckedRadioButtonId() == -1)
-        {
-            submitPrint.setEnabled(false);
+        else if ((rowGroup1.getCheckedRadioButtonId() != -1) && (rowGroup2.getCheckedRadioButtonId() == -1)) {
+            submitPrint.setEnabled(true);
+        }
+        else if ((rowGroup2.getCheckedRadioButtonId() != -1) && (rowGroup1.getCheckedRadioButtonId() == -1)) {
+            submitPrint.setEnabled(true);
         }
         else
         {
-            submitPrint.setEnabled(true);
+            submitPrint.setEnabled(false);
         }
 
     }
@@ -150,50 +179,43 @@ public class PrintDialog extends AlertDialog {
         View dialogLayout = inflater.inflate(R.layout.print_dialog, null);
         setView(dialogLayout);
         setTitle(R.string.print_dialog_title);
-        RadioGroup rowG = dialogLayout.findViewById(R.id.rowBar);
-        rowG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                toggleCheck();
-            }
-        });
-        RadioGroup colG = dialogLayout.findViewById(R.id.colBar);
-        colG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                toggleCheck();
-            }
-        });
-
-
+        RadioGroup rowG1 = dialogLayout.findViewById(R.id.rowBar1);
+        RadioGroup rowG2 = dialogLayout.findViewById(R.id.rowBar2);
+        rowG1.clearCheck(); // this is so we can start fresh, with no selection on both RadioGroups
+        rowG2.clearCheck();
+        rowG1.setOnCheckedChangeListener(rowG1Listener);
+        rowG2.setOnCheckedChangeListener(rowG2Listener);
         Button submitPrint = dialogLayout.findViewById(R.id.submitPrint);
         submitPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rowGroup = findViewById(R.id.rowBar);
+                rowGroup1 = findViewById(R.id.rowBar1);
                 columnGroup  = findViewById(R.id.colBar);
                 /*doWebViewPrint("0","0");*/
-                int rowId = rowGroup.getCheckedRadioButtonId();
+                int rowId = rowGroup1.getCheckedRadioButtonId();
                 rowGroupButton = findViewById(rowId);
                 rowGroupButtonText = rowGroupButton.getText().toString();
                 int colId = columnGroup.getCheckedRadioButtonId();
                 columnGroupButton = findViewById(colId);
                 columnGroupButtonText = columnGroupButton.getText().toString();
-                Integer margin = 39;
-                if (columnGroupButtonText.equals("A")){
+                Integer margin = 35;
+                if (columnGroupButtonText.equals("1")){
                     shiftTop = "0mm";
                 }
-                else if (columnGroupButtonText.equals("B")){
-                    shiftTop = "39mm";
+                else if (columnGroupButtonText.equals("2")){
+                    shiftTop = margin + "mm";
                 }
-                else if (columnGroupButtonText.equals("C")){
+                else if (columnGroupButtonText.equals("3")){
                     shiftTop = (margin*2) + "mm";
                 }
-                else if (columnGroupButtonText.equals("D")){
+                else if (columnGroupButtonText.equals("4")){
                     shiftTop = (margin*3) + "mm";
                 }
-                else if (columnGroupButtonText.equals("E")){
+                else if (columnGroupButtonText.equals("5")){
                     shiftTop = (margin*4) + "mm";
+                }
+                else if (columnGroupButtonText.equals("6")){
+                    shiftTop = (margin*5) + "mm";
                 }
                 if (rowGroupButtonText.equals("1")){
                     shiftBottom = "0mm";

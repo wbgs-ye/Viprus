@@ -34,41 +34,48 @@
         >
 
         <RadioButton
-            android:id="@+id/auton_radio_A"
+            android:id="@+id/auton_radio_11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A"
+            android:text="1"
             />
 
         <RadioButton
-            android:id="@+id/auton_radio_B"
+            android:id="@+id/auton_radio_12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="B"
+            android:text="2"
             />
 
         <RadioButton
-            android:id="@+id/auton_radio_C"
+            android:id="@+id/auton_radio_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="C"
+            android:text="3"
             />
         <RadioButton
-            android:id="@+id/auton_radio_D"
+            android:id="@+id/auton_radio_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="D"
+            android:text="4"
             />
         <RadioButton
-            android:id="@+id/auton_radio_E"
+            android:id="@+id/auton_radio_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="E"
+            android:text="5"
+            />
+        <RadioButton
+            android:id="@+id/auton_radio_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="6"
             />
     </RadioGroup>
 
@@ -79,18 +86,18 @@
         android:text="\nRow:"
         />
     <RadioGroup
-        android:id="@+id/rowBar"
+        android:id="@+id/rowBar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-
         <RadioButton
             android:id="@+id/auton_radio_01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
             android:layout_weight="1"
-            android:text="1"
+            android:text="A"
             />
 
         <RadioButton
@@ -98,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2"
+            android:text="B"
             />
 
         <RadioButton
@@ -106,37 +113,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="3"
+            android:text="C"
             />
         <RadioButton
             android:id="@+id/auton_radio_04"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="4"
+            android:text="D"
             />
+    </RadioGroup>
+    <RadioGroup
+        android:id="@+id/rowBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <RadioButton
             android:id="@+id/auton_radio_05"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5"
+            android:text="E"
             />
         <RadioButton
             android:id="@+id/auton_radio_06"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="6"
+            android:text="F"
             />
         <RadioButton
             android:id="@+id/auton_radio_07"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="7"
+            android:text="G"
+            />
+        <RadioButton
+            android:id="@+id/auton_radio_08"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="H"
             />
     </RadioGroup>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

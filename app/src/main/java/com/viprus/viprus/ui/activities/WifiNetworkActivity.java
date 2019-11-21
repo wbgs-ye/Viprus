@@ -89,6 +89,7 @@ public class WifiNetworkActivity extends AppCompatActivity {
     private NfcAdapter nfcAdapter;
     private BroadcastReceiver nfcStateChangeBroadcastReceiver;
     private AlertDialog writeTagDialog;
+    private AlertDialog printDialog;
     private int screenWidth;
     private PendingIntent nfcPendingIntent;
     private IntentFilter[] nfcIntentFilters;
@@ -333,7 +334,10 @@ public class WifiNetworkActivity extends AppCompatActivity {
             startForegroundDispatch();
         }
     }
-
+    private void setPrinting(){
+        final AlertDialog printDialog = new PrintDialog(this);
+        printDialog.show();
+    }
     private void enableTagWriteMode() {
         isInWriteMode = true;
         writeTagDialog.show();
@@ -452,6 +456,7 @@ public class WifiNetworkActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.action_view_password:
                 // FIXME: redundant with @WifiListActivity#onContextItemSelected
@@ -495,7 +500,7 @@ public class WifiNetworkActivity extends AppCompatActivity {
     public static class QrCodeFragment extends Fragment {
 
         private ImageView qrCodeImageView;
-
+        private Button setPrintButton;
         public QrCodeFragment() {
         }
 
@@ -515,8 +520,13 @@ public class WifiNetworkActivity extends AppCompatActivity {
             WifiNetwork wifiNetwork = (WifiNetwork) getArguments().getSerializable(KEY_WIFI_NETWORK);
 
             qrCodeImageView = (ImageView) rootView.findViewById(R.id.qr_code);
-
-
+            Button setPrintButton = (Button) rootView.findViewById(R.id.setPrint_button);
+            setPrintButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((WifiNetworkActivity) getActivity()).setPrinting();
+                }
+            });
             updateQrCode(wifiNetwork);
 
             return rootView;
@@ -561,6 +571,7 @@ public class WifiNetworkActivity extends AppCompatActivity {
     public static class NfcFragment extends Fragment {
 
         private WifiNetwork wifiNetwork;
+        private Button setPrintButton;
         private Button writeTagButton;
         private TextView nfcStatusTextView;
         private Button nfcSettingsButton;

@@ -4,11 +4,11 @@ android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
     defaultConfig {
-        applicationId 'com.viprus.viprus'
+        applicationId 'com.viprus.vipruswifi'
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 4
-        versionName "1.2.6"
+        versionName "1.0.0"
     }
     buildTypes {
         debug {
@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    output.outputFileName = "viprus-" + defaultConfig.versionName + "-release.apk"
+                    output.outputFileName = "vipruswifi-" + defaultConfig.versionName + "-release.apk"
                 }
             }
         }
