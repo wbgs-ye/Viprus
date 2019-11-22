@@ -1,15 +1,20 @@
-@page !important{
-margin-left:12mm;
-margin-right: 0mm;
-margin-top: 12mm;
-margin-bottom: 0mm;
+@page{
+margin: 0;
+margin-left:0px;
+margin-right: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
 height:297mm;
 width:210mm;
 }
-
+img{
+display:block;
+font-size:0;
+}
 *{
-margin-right:0mm;
-margin-bottom:0mm;
+margin-left:0px;
+margin-right:0px;
+margin-bottom:0px;
 padding:0mm;
 }
 

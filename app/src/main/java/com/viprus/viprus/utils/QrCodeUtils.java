@@ -19,6 +19,7 @@
 package com.viprus.viprus.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 
 import com.google.zxing.BarcodeFormat;
@@ -33,7 +34,6 @@ import com.viprus.viprus.model.WifiNetwork;
  * Utility class containing functions to generate QR codes
  */
 public class QrCodeUtils {
-
     /**
      * Generate a QR code containing the given Wi-Fi configuration
      *
@@ -56,6 +56,10 @@ public class QrCodeUtils {
             }
         }
 
+        /* Bitmap bmpWithBorder = Bitmap.createBitmap(imageBitmap.getWidth() + 2 * 2, imageBitmap.getHeight() + 2 * 2, imageBitmap.getConfig());
+        Canvas canvas = new Canvas(bmpWithBorder);
+        canvas.drawColor(Color.BLACK);
+        canvas.drawBitmap(imageBitmap, 2, 2, null); */
         return imageBitmap;
     }
 

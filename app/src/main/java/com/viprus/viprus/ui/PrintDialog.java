@@ -66,6 +66,7 @@ public class PrintDialog extends AlertDialog {
     private WebView mWebView;
     private String shiftTop;
     private String shiftBottom;
+    private Integer rowId;
     private RadioGroup rowGroup1;
     private RadioGroup rowGroup2;
     private RadioGroup columnGroup;
@@ -125,9 +126,9 @@ public class PrintDialog extends AlertDialog {
         String imagePath = "file://" + f.getAbsolutePath();
         String htmlDocument = "<html>" +
                 "<link rel='stylesheet' href='file:///android_asset/style.css'/>" +
-                "<style>img{height:30mm;width:30mm;}</style>" +
-                "<body>" +
-                "<img style='margin-left:"+ shiftTop + ";margin-top:" + shiftBottom + ";'height='30mm' width='30mm' src='" + imagePath + "'>" +
+                "<style>@page{margin:0;} img{height:30mm;width:30mm;}</style> " +
+                "<body style='margin: 0; padding: 0'>" +
+                "<img style='margin-left: " + shiftTop + ";margin-top:" + shiftBottom + ";' src='" + imagePath + "''>" +
                 "</body></html>";
         webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
         mWebView = webView;
@@ -191,8 +192,14 @@ public class PrintDialog extends AlertDialog {
             public void onClick(View view) {
                 rowGroup1 = findViewById(R.id.rowBar1);
                 columnGroup  = findViewById(R.id.colBar);
+                rowGroup2 = findViewById(R.id.rowBar2);
+                if ((rowGroup1.getCheckedRadioButtonId() != -1) && (rowGroup2.getCheckedRadioButtonId() == -1)) {
+                    rowId = rowGroup1.getCheckedRadioButtonId();
+                }
+                else if ((rowGroup2.getCheckedRadioButtonId() != -1) && (rowGroup1.getCheckedRadioButtonId() == -1)) {
+                    rowId = rowGroup2.getCheckedRadioButtonId();
+                }
                 /*doWebViewPrint("0","0");*/
-                int rowId = rowGroup1.getCheckedRadioButtonId();
                 rowGroupButton = findViewById(rowId);
                 rowGroupButtonText = rowGroupButton.getText().toString();
                 int colId = columnGroup.getCheckedRadioButtonId();
@@ -200,43 +207,46 @@ public class PrintDialog extends AlertDialog {
                 columnGroupButtonText = columnGroupButton.getText().toString();
                 Integer margin = 35;
                 if (columnGroupButtonText.equals("1")){
-                    shiftTop = "0mm";
+                    shiftTop = "12mm";
                 }
                 else if (columnGroupButtonText.equals("2")){
-                    shiftTop = margin + "mm";
+                    shiftTop = 44 + "mm";
                 }
                 else if (columnGroupButtonText.equals("3")){
-                    shiftTop = (margin*2) + "mm";
+                    shiftTop = 76 + "mm";
                 }
                 else if (columnGroupButtonText.equals("4")){
-                    shiftTop = (margin*3) + "mm";
+                    shiftTop = 108 + "mm";
                 }
                 else if (columnGroupButtonText.equals("5")){
-                    shiftTop = (margin*4) + "mm";
+                    shiftTop = 140 + "mm";
                 }
                 else if (columnGroupButtonText.equals("6")){
-                    shiftTop = (margin*5) + "mm";
+                    shiftTop = 172 + "mm";
                 }
-                if (rowGroupButtonText.equals("1")){
-                    shiftBottom = "0mm";
+                if (rowGroupButtonText.equals("A")){
+                    shiftBottom = "10mm";
                 }
-                else if (rowGroupButtonText.equals("2")){
-                    shiftBottom = (margin) + "mm";
+                else if (rowGroupButtonText.equals("B")){
+                    shiftBottom = 42 + "mm";
                 }
-                else if (rowGroupButtonText.equals("3")){
-                    shiftBottom = (margin*2) + "mm";
+                else if (rowGroupButtonText.equals("C")){
+                    shiftBottom = 74 + "mm";
                 }
-                else if (rowGroupButtonText.equals("4")){
-                    shiftBottom = (margin*3) + "mm";
+                else if (rowGroupButtonText.equals("D")){
+                    shiftBottom = 106 + "mm";
                 }
-                else if (rowGroupButtonText.equals("5")){
-                    shiftBottom = (margin*4) + "mm";
+                else if (rowGroupButtonText.equals("E")){
+                    shiftBottom = 138 + "mm";
                 }
-                else if (rowGroupButtonText.equals("6")){
-                    shiftBottom = (margin*5) + "mm";
+                else if (rowGroupButtonText.equals("F")){
+                    shiftBottom = 170 + "mm";
                 }
-                else if (rowGroupButtonText.equals("7")){
-                    shiftBottom = (margin*6) + "mm";
+                else if (rowGroupButtonText.equals("G")){
+                    shiftBottom = 202 + "mm";
+                }
+                else if (rowGroupButtonText.equals("H")){
+                    shiftBottom = 233 + "mm";
                 }
                 doWebViewPrint(shiftTop,shiftBottom);
                 dismiss();
