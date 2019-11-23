@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiKeyShare. Share Wi-Fi passwords with QR codes or NFC tags.
   ~ Copyright (C) 2016 Bruno Parmentier <dev@brunoparmentier.be>
@@ -16,24 +17,22 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.activities.WifiListActivity">
-    <item
-        android:id="@+id/action_addMan"
-        android:icon="@drawable/ic_add_black_48dp"
-        android:title="Add network"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/settings"
-        android:orderInCategory="99"
-        android:visible="false"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_about"
-        android:orderInCategory="100"
-        android:title="@string/about_dialog_title"
-        app:showAsAction="never" />
-</menu>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@layout/content_wifi_list"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.activities.WifiListActivity"
+    tools:showIn="@layout/activity_wifi_list">
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/setPrint_button"
+        android:paddingBottom="8dp"
+        android:text="Print" />
+
+</RelativeLayout>

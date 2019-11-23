@@ -31,16 +31,28 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -53,12 +65,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.viprus.viprus.R;
 import com.viprus.viprus.adapters.WifiNetworkAdapter;
 import com.viprus.viprus.db.WifiKeysDataSource;
 import com.viprus.viprus.model.WifiAuthType;
+import com.viprus.viprus.model.WifiException;
 import com.viprus.viprus.model.WifiNetwork;
 import com.viprus.viprus.ui.AboutDialog;
+import com.viprus.viprus.ui.addDialog;
 import com.viprus.viprus.ui.ContextMenuRecyclerView;
 import com.viprus.viprus.ui.DividerItemDecoration;
 import com.viprus.viprus.utils.WifiConfigStoreParser;
@@ -79,6 +94,13 @@ public class WifiListActivity extends AppCompatActivity {
     private WifiNetworkAdapter wifiNetworkAdapter;
     private ContextMenuRecyclerView rvWifiNetworks;
     private WifiManager wifiManager;
+    public EditText wifiSSIDText;
+    public EditText wifiPassText;
+    public Spinner wifiSecurityText;
+    String wifiSSID;
+    String wifiPassword;
+    String wifiSecurity;
+    private WifiAuthType wifiSecurityType;
     private boolean isDeviceRooted = false;
     private int networkIdToUpdate = -1; // index of item to update in networks list
     private BroadcastReceiver wifiStateChangeBroadcastReceiver;
@@ -93,6 +115,8 @@ public class WifiListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        rvWifiNetworks = (ContextMenuRecyclerView) findViewById(R.id.rvWifiNetwork);
+        rvWifiNetworks.setLayoutManager(new LinearLayoutManager(this));
 
         /* Enable Wi-Fi if disabled */
         if (!wifiManager.isWifiEnabled()) {
@@ -161,8 +185,11 @@ public class WifiListActivity extends AppCompatActivity {
 
     private void addWifiNetwork() {
         // TODO: Show dialog box to configure new Wi-Fi AP
-
-        wifiNetworks.add(new WifiNetwork("Test1", WifiAuthType.WEP, "mykey", false));
+        Log.e(wifiSecurity+"t", wifiSSID);
+        /*wifiNetworks.add(new WifiNetwork(wifiSSID, WifiAuthType.WPA2_PSK, wifiPassword, false));
+        wifiNetworkAdapter.notifyItemInserted(wifiNetworks.size() - 1);*/
+        Log.e(wifiSSID,wifiSSID);
+        wifiNetworks.add(new WifiNetwork(wifiSSID, wifiSecurityType, wifiPassword, false));
         wifiNetworkAdapter.notifyItemInserted(wifiNetworks.size() - 1);
         rvWifiNetworks.scrollToPosition(wifiNetworkAdapter.getItemCount() - 1);
     }
@@ -215,6 +242,161 @@ public class WifiListActivity extends AppCompatActivity {
             case R.id.action_about:
                 final AlertDialog aboutDialog = new AboutDialog(this);
                 aboutDialog.show();
+                return true;
+            case R.id.action_addMan:
+                TextView textView;
+                final LayoutInflater inflater = getLayoutInflater();
+                final View addDialogLayout = inflater.inflate(R.layout.dialog_add_man, null);
+                final TextInputLayout wifiSSIDwrapper = (TextInputLayout) addDialogLayout.findViewById(R.id.wifi_SSID_wrapper);
+                final EditText wifiSSIDText = (EditText) addDialogLayout.findViewById(R.id.wifi_name);
+                final TextInputLayout wifiPassWrapper = (TextInputLayout) addDialogLayout.findViewById(R.id.wifi_pass_wrapper);
+                final EditText wifiPassText = (EditText) addDialogLayout.findViewById(R.id.wifi_key);
+                final Spinner wifiSecurityText = (Spinner) addDialogLayout.findViewById(R.id.security_spinner);
+                final CheckBox showPasswordCheckbox = (CheckBox) addDialogLayout.findViewById(R.id.show_password_checkbox);
+                final AlertDialog addDialog = new AlertDialog.Builder(this)
+                        .setTitle("Add WiFi Network")
+                        .setView(addDialogLayout)
+                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                /*Gets overwritten*/
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.action_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .create();
+                addDialog.show();
+                final CheckBox showPasswordCheckBox = (CheckBox) addDialogLayout.findViewById(R.id.show_password_checkbox);
+                showPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        int selectionIndex = wifiPassText.getSelectionStart();
+                        if (isChecked) {
+                            wifiPassText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        } else {
+                            wifiPassText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        }
+                        wifiPassText.setSelection(selectionIndex);
+                    }
+                });
+                wifiSecurityText.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        Log.e(wifiSecurityText.getSelectedItem().toString(),"spinner");
+                        if (wifiSecurityText.getSelectedItem().toString().equals("None")){
+                            addDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
+                            wifiPassWrapper.setVisibility(View.GONE);
+                            showPasswordCheckBox.setVisibility(View.GONE);
+                        }
+                        else{
+                            wifiPassWrapper.setVisibility(View.VISIBLE);
+                            showPasswordCheckBox.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        // your code here
+                    }
+
+                });
+
+                addDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addDialog.dismiss();
+                    }
+                    });
+                addDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false); // disabled by default
+                addDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        wifiSecurity = wifiSecurityText.getSelectedItem().toString();
+                        if (wifiSecurity.equals("None")){
+                            wifiSecurityType = (WifiAuthType.OPEN);
+                        }
+                        else if (wifiSecurity.equals("WEP")){
+                            wifiSecurityType = (WifiAuthType.WEP);
+                        }
+                        else if (wifiSecurity.equals("WPA2 PSK")){
+                            wifiSecurityType = (WifiAuthType.WPA2_PSK);
+                        }
+                        wifiSSID = wifiSSIDText.getText().toString();
+                        wifiPassword = wifiPassText.getText().toString();
+                        try{
+                        if ((WifiNetwork.isValidKeyLength(wifiSecurityType, wifiPassText.getText().toString()))) {
+                            wifiPassWrapper.setError(null);
+                            addWifiNetwork();
+                            addDialog.dismiss();
+                        }
+                    } catch (WifiException e) {
+                        switch (e.getErrorCode()) {
+                            case WifiException.WEP_KEY_LENGTH_ERROR:
+                                wifiPassWrapper.setError(getString(R.string.error_wep_password_length));
+                                break;
+                            case WifiException.WPA_KEY_LENGTH_ERROR:
+                                wifiPassWrapper.setError(getString(R.string.error_wpa_password_length));
+                                break;
+                            default:
+                                wifiPassWrapper.setError(null);
+                                break;
+                        }
+                    }
+                }
+        });
+
+                wifiPassText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        addDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(editable.length() >= 5);
+                        if (wifiPassWrapper.getError() != null) {
+                            try {
+                                wifiSecurity = wifiSecurityText.getSelectedItem().toString();
+                                wifiSSID = wifiSSIDText.getText().toString();
+                                if (wifiSecurity.equals("None")){
+                                    wifiSecurityType = (WifiAuthType.OPEN);
+                                }
+                                else if (wifiSecurity.equals("WEP")){
+                                    wifiSecurityType = (WifiAuthType.WEP);
+                                }
+                                else if (wifiSecurity.equals("WPA2 PSK")){
+                                    wifiSecurityType = (WifiAuthType.WPA2_PSK);
+                                }
+                                if (WifiNetwork.isValidKeyLength(wifiSecurityType,
+                                        editable.toString())) {
+                                    wifiPassWrapper.setError(null);
+                                }
+                            } catch (final WifiException e) {
+                                switch (e.getErrorCode()) {
+                                    case WifiException.WEP_KEY_LENGTH_ERROR:
+                                        wifiPassWrapper.setError(getString(R.string.error_wep_password_length));
+                                        break;
+                                    case WifiException.WPA_KEY_LENGTH_ERROR:
+                                        wifiPassWrapper.setError(getString(R.string.error_wpa_password_length));
+                                        break;
+                                    default:
+                                        wifiPassWrapper.setError(e.getMessage());
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                });
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
