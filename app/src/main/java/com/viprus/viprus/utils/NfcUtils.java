@@ -77,7 +77,7 @@ public class NfcUtils {
     public static final int MAX_SSID_SIZE_BYTES = 32;
     public static final int MAX_MAC_ADDRESS_SIZE_BYTES = 6;
     public static final int MAX_NETWORK_KEY_SIZE_BYTES = 64;
-
+    private String wifiUri;
     /**
      * Write the given Wi-Fi configuration to the NFC tag.
      *
@@ -160,15 +160,18 @@ public class NfcUtils {
      */
     public static NdefMessage generateNdefMessage(WifiNetwork wifiNetwork) {
         byte[] payload = generateNdefPayload(wifiNetwork);
-
+        String ssid = wifiNetwork.getSsid();
+        String networkKey = wifiNetwork.getKey();
+        String wifiUri = "https://link.viprus.co.uk/?" + ssid + "`" + networkKey;
         NdefRecord mimeRecord = new NdefRecord(
                 NdefRecord.TNF_MIME_MEDIA,
                 NfcUtils.NFC_TOKEN_MIME_TYPE.getBytes(Charset.forName("US-ASCII")),
                 new byte[0],
                 payload);
         NdefRecord aarRecord = NdefRecord.createApplicationRecord(PACKAGE_NAME);
+        NdefRecord uriRecord = NdefRecord.createUri(wifiUri);
 
-        return new NdefMessage(new NdefRecord[] {mimeRecord, aarRecord});
+        return new NdefMessage(new NdefRecord[] {mimeRecord, uriRecord});
     }
 
     private static byte[] generateNdefPayload(WifiNetwork wifiNetwork) {
@@ -214,6 +217,7 @@ public class NfcUtils {
         }*/
 
         String networkKey = wifiNetwork.getKey();
+        String wifiUri = "https://link.viprus.co.uk/?" + ssid + "`" + networkKey;
         short networkKeySize = (short) networkKey.getBytes().length;
 
         byte[] macAddress = new byte[MAX_MAC_ADDRESS_SIZE_BYTES];
