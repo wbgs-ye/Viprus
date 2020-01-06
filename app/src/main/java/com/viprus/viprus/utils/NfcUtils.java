@@ -162,7 +162,7 @@ public class NfcUtils {
         byte[] payload = generateNdefPayload(wifiNetwork);
         String ssid = wifiNetwork.getSsid();
         String networkKey = wifiNetwork.getKey();
-        String wifiUri = "https://link.viprus.co.uk/?" + ssid + "`" + networkKey;
+        String wifiUri = "https://link.viprus.co.uk/#" + ssid + "&" + networkKey;
         NdefRecord mimeRecord = new NdefRecord(
                 NdefRecord.TNF_MIME_MEDIA,
                 NfcUtils.NFC_TOKEN_MIME_TYPE.getBytes(Charset.forName("US-ASCII")),

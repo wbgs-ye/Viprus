@@ -7,8 +7,8 @@ android {
         applicationId 'com.viprus.vipruswifi'
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.0.2"
+        versionCode 10
+        versionName "1.0.3"
     }
     buildTypes {
         debug {
